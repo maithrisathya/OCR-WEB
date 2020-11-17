@@ -10,6 +10,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ViewerService } from '../services/viewer.service';
 import xml2js from 'xml2js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { XmlModel } from '../shared/xml-model';
 
 @Component({
   selector: 'app-screen',
@@ -23,7 +24,7 @@ export class ScreenComponent implements OnInit{
   public value:string;
   imagewidth;
   xmlItems;
-
+  words:any= XmlModel.textArray;
   selectedImage: string;
   anotherTryVisible: boolean;
   public localUrl: any;
@@ -106,6 +107,10 @@ export class ScreenComponent implements OnInit{
       this.fileName = fileName;
    });
 
+   var element = document.getElementById("content");
+    console.log("documents----"+element)
+    this.imageService.setDocumentId(element);
+
   }
   openModalDialog(){
     this.images = this.imageService.getImages();
@@ -159,9 +164,9 @@ export class ScreenComponent implements OnInit{
     setTimeout(() => this. fitwidth(),50);
     setTimeout(() => this.setpercentage(),60);
 
-    var element = document.getElementById("content");
-    console.log("documents----"+element)
-    this.imageService.setDocumentId(element);
+    // var element = document.getElementById("content");
+    // console.log("documents----"+element)
+    // this.imageService.setDocumentId(element);
   }
 
 

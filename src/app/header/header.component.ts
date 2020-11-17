@@ -129,15 +129,14 @@ asHorizontal(){
   openModalHelp(){
     this.display='block';
   }
-  scrollUp(){
 
+  scrollUp(){
     console.log("in header element==="+this.element);
     console.log("inside scroll up")
     this.element.scrollBy(0,-50)
   }
 
   scrollDown(){
-
     console.log("in header element==="+this.element);
     console.log("inside scroll down")
     this.element.scrollBy(0, 50);

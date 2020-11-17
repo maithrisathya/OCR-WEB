@@ -18,7 +18,7 @@
 
   <!--Two containers-->
  <!--Two containers-->
-<div  class="container" style="width: 100%; height:765px;background-color: whitesmoke;">
+<div  class="container" style="width: 100%; height:932px;background-color: whitesmoke;">
   <as-split [direction]=value >
    <as-split-area id="content" [lockSize]=true style="overflow-x: auto; overflow-y: auto;" (scroll)="updateScroll(scrollOne, scrollTwo)" #scrollOne >
 
@@ -30,7 +30,9 @@
                      </as-split-area>
                      <as-split-area  style="overflow-x: auto; overflow-y: auto;" (scroll)="updatescroll(scrollOne, scrollTwo)" #scrollTwo>
                      <div id="image">
-                        <!-- <input id="xmlInput" placeholder="Hello" style="width: 100%;"/> -->
+                      <p *ngFor="let text of words">
+                        <textarea id = "xmlInput" [placeholder] = "text.unicode" style="width:100%"></textarea>
+                     </p> 
                       </div>
                     </as-split-area>
                 </as-split>

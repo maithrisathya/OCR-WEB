@@ -9,6 +9,7 @@ import { ImageService } from '../services/images.service';
 import { Images } from '../shared/images.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ViewerService } from '../services/viewer.service';
+import { XmlModel } from '../shared/xml-model';
 
 @Component({
   selector: 'app-footer',
@@ -178,6 +179,17 @@ NextImage(){
   //this.localUrl = this.localUrlArray[this.imgFileCount];
 }
 
+loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xmlhttp.open("GET", "assets/BaahyaakaashayaanigaluTelaaduvudeke_0007.xml", true);
+  xmlhttp.send();
+  
+}
 
 }
 
@@ -187,5 +199,33 @@ function convertCanvasToImage(canvas) {
   image.src = canvas.toDataURL("image/png");
   console.log("image.src: "+image.src);
   return image;
+}
+
+function myFunction(xml){
+  var txt;
+  var xmlDoc = xml.responseXML;
+  var block = xmlDoc.getElementsByTagName("block");
+
+  console.log("length ====="+block.length);
+  for (let i = 0; i <block.length; i++) {
+    if(block[i].children != null){
+      for(let j= 0; j <  block[i].children.length;j++){
+        if(block[i].children[j].children != null){
+          for(let k=0;k < block[i].children[j].children.length;k++){
+            // console.log("block childnodes----"+block[i].children[j].nodeName);
+            // console.log("block childnodes----"+ block[i].children.length);
+            // console.log("wordssss----"+block[i].children[j].children[k].getAttribute('unicode'));
+            if(block[i].children[j].children[k].getAttribute('unicode') != null){
+              txt = block[i].children[j].children[k].getAttribute('unicode');
+              var wordValue = new XmlModel(txt,block[i].children[j].children[k].getAttribute('rowStart'),block[i].children[j].children[k].getAttribute('rowEnd'),block[i].children[j].children[k].getAttribute('colStart'),block[i].children[j].children[k].getAttribute('colEnd'));
+              XmlModel.textArray.push(wordValue);
+            }
+           }
+        }
+   }
+}
+} 
+// console.log("words array length"+this.words.length);
+//  document.getElementById("demo").innerHTML = txt;
 }
 
